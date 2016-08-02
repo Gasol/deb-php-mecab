@@ -1,0 +1,3 @@
+version=3
+https://github.com/rsky/php-mecab/releases \
+  /rsky/php-mecab/archive/v([\d\.]*).tar.gz  debian  uupdate

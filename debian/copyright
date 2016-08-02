@@ -1,0 +1,19 @@
+This package was debianized by Gasol Wu <gasol.wu@gmail.com> using dh-make-pecl
+on Tue, 02 Aug 2016 16:43:32 +0800.
+
+It was downloaded from https://github.com/rsky/php-mecab/
+
+Upstream Author:
+
+    Ryusuke SEKIYAMA <rsky0711@gmail.com>
+
+Copyright:
+
+    Copyright (C) 2006-2015
+
+License:
+
+    MIT Licence
+
+The Debian packaging is copyright 2016, Gasol Wu <gasol.wu@gmail.com> and
+is licensed under the MIT, see `http://www.opensource.org/licenses/mit-license.php'.
