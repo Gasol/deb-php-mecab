@@ -2,10 +2,10 @@ Source: php-mecab
 Section: web
 Priority: optional
 Maintainer: Gasol Wu <gasol.wu@gmail.com>
-Build-Depends: debhelper (>= 7), php5-dev, mecab, libmecab-dev
+Build-Depends: debhelper (>= 7), php-dev, mecab, libmecab-dev
 Standards-Version: 3.9.1
 
-Package: php5-mecab
+Package: php7.0-mecab
 Architecture: any
 Depends: ${shlibs:Depends}, ${php:Depends}, ${misc:Depends}, libmecab2
 Description: mecab module for PHP 5
