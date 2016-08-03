@@ -2,13 +2,13 @@ Source: php-mecab
 Section: web
 Priority: optional
 Maintainer: Gasol Wu <gasol.wu@gmail.com>
-Build-Depends: debhelper (>= 7), pkg-php-tools (>= 1.28), dh-php5, php5-dev, mecab, libmecab-dev
+Build-Depends: debhelper (>= 7), pkg-php-tools (>= 1.28), dh-php, php-dev, mecab, libmecab-dev
 Standards-Version: 3.9.1
 
-Package: php5-mecab
+Package: php7.0-mecab
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${phppear:Debian-Depends}
 Recommends: ${phppear:Debian-Recommends}
 Breaks: ${phppear:Debian-Breaks}
-Description: mecab module for PHP 5
+Description: mecab module for PHP 7.0
  ${phppear:description}
