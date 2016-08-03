@@ -1,3 +1,9 @@
+php-mecab (0.6.0-1ppa4~xenial) xenial; urgency=low
+
+  * Fix build again
+
+ -- Gasol Wu <gasol.wu@gmail.com>  Wed, 03 Aug 2016 17:46:15 +0800
+
 php-mecab (0.6.0-1ppa3~xenial) xenial; urgency=low
 
   * Fix build in PHP 7.0
