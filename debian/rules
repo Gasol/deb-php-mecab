@@ -1,106 +1,19 @@
 #!/usr/bin/make -f
 
-export DH_OPTIONS
-
 DPKG_EXPORT_BUILDFLAGS=1
 
 include /usr/share/dpkg/buildflags.mk
 
-ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -g
-	DEBUG := --enable-debug
-else
-	DEBUG := --disable-debug
-endif
+%:
+	dh $@ -Dmecab -Bmecab --with phppear,php5
 
-PECL_PKG_NAME=mecab
-PECL_PKG_REALNAME=mecab
-PACKAGE_NAME=php-mecab
-BIN_PACKAGE_NAME=php$*-mecab
-PHPIZE=/usr/bin/phpize
-PHPCONFIG=/usr/bin/php-config
-EXT_DIR=$(shell $(PHPCONFIG)$* --extension-dir)
-SOURCE_DIR=$(shell ls -d $(PECL_PKG_REALNAME))
-BINARYTARGETS=binary-arch-v5
-BUILDTARGETS=build-v5
-CLEANTARGETS=clean-v5
-PHP55CONFD=true
+override_dh_auto_configure:
+	cd mecab && phpize && ./configure
 
-# Sarge doesn't support --phpapi option (Bug #365667)
-phpapiver4=$(shell /usr/bin/php-config4 --phpapi)
-phpapiver5=$(shell /usr/bin/php-config5 --phpapi)
+override_dh_auto_build:
+	make -C mecab
 
-configure-v4 configure-v5: configure-v%: configure-stamp-v%
-configure-stamp-v4 configure-stamp-v5: configure-stamp-v%:
-	dh_testdir
-	# Add here commands to configure the package.
-	(cd $(SOURCE_DIR); \
-	$(PHPIZE)$*; \
-	./configure --with-php-config=$(PHPCONFIG)$* --prefix=/usr)
-	touch $@
+override_dh_auto_test:
+	NO_INTERACTION=1 make -C mecab
 
-build: $(BUILDTARGETS)
-
-build-v4 build-v5: build-v%: build-stamp-v%
-
-build-stamp:
-	touch build-stamp
-
-build-stamp-v4 build-stamp-v5: build-stamp-v%: build-stamp configure-stamp-v%
-	dh_testdir
-
-	(cd $(SOURCE_DIR); $(MAKE); mkdir -p ../tmp/modules$*; cp modules/* ../tmp/modules$*; $(MAKE) clean)
-	touch $@
-
-clean: $(CLEANTARGETS)
-	dh_clean
-
-clean-v4 clean-v5: clean-v%:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp* configure-stamp*
-
-	(cd $(SOURCE_DIR); \
-	$(MAKE) clean; \
-	$(PHPIZE)$* --clean)
-	rm -rf tmp/modules$*
-
-install-v4 install-v5: install-v%: build-v%
-	dh_testdir
-	dh_testroot
-	dh_installdirs
-
-	mkdir -p debian/$(BIN_PACKAGE_NAME)/$(EXT_DIR)
-	install -m 644 -o root -g root tmp/modules$*/$(PECL_PKG_NAME).so debian/$(BIN_PACKAGE_NAME)/$(EXT_DIR)/$(PECL_PKG_NAME).so
-	if [ -f "debian/$(PECL_PKG_NAME).ini" ]; then \
-		if [ "$(PHP55CONFD)" = "true" ]; then \
-			mkdir -p debian/$(BIN_PACKAGE_NAME)/etc/php$*/mods-available; \
-			cp debian/$(PECL_PKG_NAME).ini debian/$(BIN_PACKAGE_NAME)/etc/php$*/mods-available; \
-		else \
-			mkdir -p debian/$(BIN_PACKAGE_NAME)/etc/php$*/conf.d; \
-			cp debian/$(PECL_PKG_NAME).ini debian/$(BIN_PACKAGE_NAME)/etc/php$*/conf.d; \
-		fi \
-	fi
-
-binary-arch-v4 binary-arch-v5: binary-arch-v%: install-v%
-	echo "php:Depends=phpapi-$(phpapiver$*)" >> debian/$(BIN_PACKAGE_NAME).substvars
-
-binary-arch: $(BINARYTARGETS)
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs ChangeLog.md
-	dh_installdocs
-	dh_installexamples
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-	dh_strip
-endif
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
-.PHONY: build build-v4 build-v5 clean clean-v4 clean-v5 binary-indep binary-arch binary-arch-v4 binary-arch-v5 binary install-v4 install-v5 configure-v4 configure-v5
+override_dh_auto_install:
