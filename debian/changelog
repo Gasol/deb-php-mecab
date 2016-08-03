@@ -1,3 +1,9 @@
+php-mecab (0.6.0-1ppa3~trusty) trusty; urgency=low
+
+  * Fix build by removing pkg-php-tools dependency
+
+ -- Gasol Wu <gasol.wu@gmail.com>  Wed, 03 Aug 2016 16:42:48 +0800
+
 php-mecab (0.6.0-1ppa2~trusty) trusty; urgency=low
 
   * Rewrite rules by using php-pkg-tools
