@@ -1,0 +1,2 @@
+mod mecab/modules/mecab.so
+mod debian/mecab.ini
