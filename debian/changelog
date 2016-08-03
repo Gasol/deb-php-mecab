@@ -1,3 +1,10 @@
+php-mecab (0.6.0-1packagecloud2~jessie) jessie; urgency=low
+
+  * Specify source format
+  * Rewrite rules
+
+ -- Gasol Wu <gasol.wu@gmail.com>  Wed, 03 Aug 2016 16:46:35 +0800
+
 php-mecab (0.6.0-1packagecloud1~jessie) jessie; urgency=low
 
   * Initial Release
