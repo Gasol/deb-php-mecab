@@ -2,7 +2,7 @@
 
 set -e
 
-[ "$1" = "configure" ] && php5enmod mecab
+[ "$1" = "configure" ] && phpenmod mecab
 
 #DEBHELPER#
 
