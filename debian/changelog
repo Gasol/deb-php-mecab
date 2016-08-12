@@ -1,3 +1,9 @@
+php-mecab (0.6.0-1ppa5~xenial) xenial; urgency=medium
+
+  * Fix postinst that contains wrong command to execute
+
+ -- Gasol Wu <gasol.wu@gmail.com>  Fri, 12 Aug 2016 18:16:43 +0800
+
 php-mecab (0.6.0-1ppa4~xenial) xenial; urgency=low
 
   * Fix build again
